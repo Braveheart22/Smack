@@ -45,12 +45,12 @@
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
         android:onClick="loginLoginBtnClicked"
+        android:text="@string/login"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginPasswordTxt"
-        tools:text="LOGIN" />
+        app:layout_constraintTop_toBottomOf="@+id/loginPasswordTxt" />
 
     <TextView
         android:id="@+id/textView"
