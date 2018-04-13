@@ -10,4 +10,8 @@
     <string name="add_channel">add channel</string>
     <string name="message">Message:</string>
     <string name="send_message">send message</string>
+    <string name="password">password</string>
+    <string name="email">email</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="sign_up_here">SIGN UP HERE</string>
 </resources>
