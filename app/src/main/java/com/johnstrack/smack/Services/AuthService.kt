@@ -8,12 +8,17 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.johnstrack.smack.Utilities.URL_LOGIN
 import com.johnstrack.smack.Utilities.URL_REGISTER
+import org.json.JSONException
 import org.json.JSONObject
 
 /**
  * Created by John on 4/16/2018 at 4:57 PM.
  */
 object AuthService {
+
+    var isLoggedIn = false
+    var userEmail = ""
+    var authToken = ""
 
     fun registerUser(context: Context, email: String, password: String, complete: (Boolean) -> Unit) {
 
@@ -42,19 +47,27 @@ object AuthService {
         Volley.newRequestQueue(context).add(registerRequest)
     }
 
-    fun loginUser (context: Context, email: String, password: String, complete: (Boolean) -> Unit) {
+    fun loginUser(context: Context, email: String, password: String, complete: (Boolean) -> Unit) {
 
         val jsonBody = JSONObject()
         jsonBody.put("email", email)
         jsonBody.put("password", password)
         val requestBody = jsonBody.toString()
 
-        val loginRequest = object: JsonObjectRequest(Method.POST, URL_LOGIN, null, Response.Listener {response ->
-            println(response)
-            val authToken = response.getString()
-        }, Response.ErrorListener {error ->
+        val loginRequest = object : JsonObjectRequest(Method.POST, URL_LOGIN, null, Response.Listener { response ->
+
+            try {
+                authToken = response.getString("token")
+                userEmail = response.getString("user")
+                isLoggedIn = true
+                complete(true)
+            } catch (e: JSONException) {
+                Log.d("JSON", "EXC:" + e.localizedMessage)
+                complete(false)
+            }
+        }, Response.ErrorListener { error ->
             println(error)
-            Log.d("ERROR", "Could not register user: $error")
+            Log.d("ERROR", "Could not login user: $error")
             complete(false)
         }) {
 
