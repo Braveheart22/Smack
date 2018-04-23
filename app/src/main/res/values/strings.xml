@@ -19,4 +19,6 @@
     <string name="create_user">CREATE USER</string>
     <string name="avatar">avatar</string>
     <string name="generate_background_color">Generate background color</string>
+    <string name="channel_name">channel name</string>
+    <string name="channel_description">channel description</string>
 </resources>
