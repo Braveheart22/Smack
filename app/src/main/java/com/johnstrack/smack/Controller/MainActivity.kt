@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.johnstrack.smack.R
@@ -72,7 +73,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun addChannelClicked (view: View) {
+        if (AuthService.isLoggedIn) {
+            val builder = AlertDialog.Builder(this)
+            val dialogView = layoutInflater.inflate(R.layout.add_channel_dialog, null)
 
+            builder.setView(dialogView)
+                    .setPositiveButton("Add") { dialogInterface, i ->
+                        //Perform logic when clicked
+                    }
+                    .setNegativeButton("cancel") {dialogInterface, i ->
+                        //cancel and close the dialog
+                    }
+                    .show()
+        }
     }
 
     fun sendMsgBtnClicked (view: View) {
