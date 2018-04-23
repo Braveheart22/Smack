@@ -12,6 +12,8 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import com.johnstrack.smack.R
 import com.johnstrack.smack.Services.AuthService
 import com.johnstrack.smack.Services.UserDataService
@@ -31,6 +33,7 @@ class MainActivity : AppCompatActivity() {
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
+        hideKeyboard()
 
         LocalBroadcastManager.getInstance(this).registerReceiver(userDataChangeReceiver, IntentFilter(BROADCAST_USER_DATA_CHANGE))
 
@@ -80,9 +83,17 @@ class MainActivity : AppCompatActivity() {
             builder.setView(dialogView)
                     .setPositiveButton("Add") { dialogInterface, i ->
                         //Perform logic when clicked
+                        val nameTextField = dialogView.findViewById<EditText>(R.id.addChannelNameTxt)
+                        val descTextField = dialogView.findViewById<EditText>(R.id.addChannelDescTxt)
+                        val channelName = nameTextField.text.toString()
+                        val channelDesc = descTextField.text.toString()
+
+                        //Create channel with the name and description
+                        hideKeyboard()
                     }
                     .setNegativeButton("cancel") {dialogInterface, i ->
                         //cancel and close the dialog
+                        hideKeyboard()
                     }
                     .show()
         }
@@ -90,6 +101,13 @@ class MainActivity : AppCompatActivity() {
 
     fun sendMsgBtnClicked (view: View) {
 
+    }
+
+    fun hideKeyboard () {
+        val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        if (inputManager.isAcceptingText) {
+            inputManager.hideSoftInputFromWindow(currentFocus.windowToken, 0)
+        }
     }
 
 }
