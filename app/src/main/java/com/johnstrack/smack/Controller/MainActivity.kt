@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     private val socket = IO.socket(SOCKET_URL)
     lateinit var channelAdapter: ArrayAdapter<Channel>
 
-    private fun setupAdapters () {
+    private fun setupAdapters() {
         channelAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, MessageService.channels)
         channel_list.adapter = channelAdapter
     }
@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
                 userImageNavHeader.setImageResource(resourceId)
                 userImageNavHeader.setBackgroundColor(UserDataService.returnAvatarColor(UserDataService.avatarColor))
                 loginBtnNavHeader.text = getString(R.string.logout)
-                MessageService.getChannels(context) {complete ->
+                MessageService.getChannels(context) { complete ->
 
                     if (complete) {
                         channelAdapter.notifyDataSetChanged()
@@ -131,12 +131,13 @@ class MainActivity : AppCompatActivity() {
 
     private val onNewChannel = Emitter.Listener { args ->
         runOnUiThread {
-            val channelName = args[0]as String
+            val channelName = args[0] as String
             val channelDescription = args[1] as String
             val channelId = args[2] as String
 
             val newChannel = Channel(channelName, channelDescription, channelId)
             MessageService.channels.add(newChannel)
+            channelAdapter.notifyDataSetChanged()
         }
     }
 
