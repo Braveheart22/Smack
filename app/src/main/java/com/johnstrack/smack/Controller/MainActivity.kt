@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
 
                     if (complete) {
 
-                        if (MessageService.channels.count() >0) {
+                        if (MessageService.channels.count() > 0) {
                             selectedChannel = MessageService.channels[0]
                             channelAdapter.notifyDataSetChanged()
                             updateWithChannel()
@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun updateWithChannel () {
+    fun updateWithChannel() {
         mainChannelName.text = "#${selectedChannel?.name}"
         // Download messages for channel
     }
@@ -172,7 +172,7 @@ class MainActivity : AppCompatActivity() {
             val userName = args[3] as String
             val userAvatar = args[4] as String
             val userAvatarColor = args[5] as String
-            val id  = args[6] as String
+            val id = args[6] as String
             val timeStamp = args[7] as String
 
             val newMessage = Message(msgBody, userName, channelId, userAvatar, userAvatarColor, id, timeStamp)
