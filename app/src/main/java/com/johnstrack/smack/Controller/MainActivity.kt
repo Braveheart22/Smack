@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                 userImageNavHeader.setImageResource(resourceId)
                 userImageNavHeader.setBackgroundColor(UserDataService.returnAvatarColor(UserDataService.avatarColor))
                 loginBtnNavHeader.text = getString(R.string.logout)
-                MessageService.getChannels(context) { complete ->
+                MessageService.getChannels { complete ->
 
                     if (complete) {
                         channelAdapter.notifyDataSetChanged()
