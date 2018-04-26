@@ -15,9 +15,9 @@ object MessageService {
 
     val channels = ArrayList<Channel>()
 
-    fun getChannels (complete: (Boolean) -> Unit) {
+    fun getChannels(complete: (Boolean) -> Unit) {
 
-        val channelsRequest = object: JsonArrayRequest(Method.GET, URL_GET_CHANNELS, null, Response.Listener { response ->
+        val channelsRequest = object : JsonArrayRequest(Method.GET, URL_GET_CHANNELS, null, Response.Listener { response ->
 
             try {
 
@@ -37,7 +37,7 @@ object MessageService {
                 complete(false)
             }
 
-        }, Response.ErrorListener {error ->
+        }, Response.ErrorListener { error ->
             Log.d("Error", "Could not retrieve channels.")
             complete(false)
         }) {

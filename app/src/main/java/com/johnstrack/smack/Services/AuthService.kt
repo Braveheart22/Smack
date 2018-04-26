@@ -131,7 +131,7 @@ object AuthService {
     }
 
     fun findUserByEmail(context: Context, complete: (Boolean) -> Unit) {
-        val findUserRequest = object : JsonObjectRequest(Method.GET, "$URL_GET_USER${App.prefs.userEmail}", null, Response.Listener {response ->
+        val findUserRequest = object : JsonObjectRequest(Method.GET, "$URL_GET_USER${App.prefs.userEmail}", null, Response.Listener { response ->
             try {
                 UserDataService.name = response.getString("name")
                 UserDataService.email = response.getString("email")
@@ -145,7 +145,7 @@ object AuthService {
             } catch (e: JSONException) {
                 Log.d("JSON", "EXC: " + e.localizedMessage)
             }
-        }, Response.ErrorListener {error ->
+        }, Response.ErrorListener { error ->
             Log.d("Error", "Could not find user. " + error.localizedMessage)
             complete(false)
         }) {
