@@ -7,6 +7,7 @@ import com.johnstrack.smack.Controller.App
 import com.johnstrack.smack.Model.Channel
 import com.johnstrack.smack.Model.Message
 import com.johnstrack.smack.Utilities.URL_GET_CHANNELS
+import com.johnstrack.smack.Utilities.URL_GET_MESSAGES
 import org.json.JSONException
 
 /**
@@ -59,7 +60,7 @@ object MessageService {
 
     fun getMessages(channelId: String, complete: (Boolean) -> Unit) {
 
-        val url = "$URL_GET_CHANNELS$channelId"
+        val url = "$URL_GET_MESSAGES$channelId"
         val messagesRequest = object : JsonArrayRequest(Method.GET, url, null, Response.Listener {response ->
             clearMessasges()
             try {
@@ -84,7 +85,7 @@ object MessageService {
             }
 
         }, Response.ErrorListener {error ->
-            Log.d("Error", "Could not retrieve messages.")
+            Log.d("Error", "Could not retrieve messages. " + error.localizedMessage)
             complete(false)
         }) {
             override fun getBodyContentType(): String {
