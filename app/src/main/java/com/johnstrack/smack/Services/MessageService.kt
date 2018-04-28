@@ -22,7 +22,7 @@ object MessageService {
         val channelsRequest = object : JsonArrayRequest(Method.GET, URL_GET_CHANNELS, null, Response.Listener { response ->
 
             try {
-
+//
                 for (x in 0 until response.length()) {
                     val channel = response.getJSONObject(x)
                     val name = channel.getString("name")
@@ -55,5 +55,56 @@ object MessageService {
             }
         }
         App.prefs.requestQueue.add(channelsRequest)
+    }
+
+    fun getMessages(channelId: String, complete: (Boolean) -> Unit) {
+
+        val url = "$URL_GET_CHANNELS$channelId"
+        val messagesRequest = object : JsonArrayRequest(Method.GET, url, null, Response.Listener {response ->
+            clearMessasges()
+            try {
+                for (x in 0 until response.length()) {
+                    val message = response.getJSONObject(x)
+                    val messageBody = message.getString("messageBody")
+                    val channelId = message.getString("channelId")
+                    val id = message.getString("_id")
+                    val useraName = message.getString("userName")
+                    val userAvatar = message.getString("userAvatar")
+                    val userAvatarColor = message.getString("userAvatarColor")
+                    val timeStamp = message.getString("timeStamp")
+
+                    val newMessage = Message(messageBody, useraName, channelId, userAvatar, userAvatarColor, id, timeStamp)
+                    this.messages.add(newMessage)
+                }
+                complete(true)
+
+            } catch (e: JSONException) {
+                Log.d("JSON", "EXC: " + e.localizedMessage)
+                complete(false)
+            }
+
+        }, Response.ErrorListener {error ->
+            Log.d("Error", "Could not retrieve messages.")
+            complete(false)
+        }) {
+            override fun getBodyContentType(): String {
+                return "application/json; charset=utf-8"
+            }
+
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Bearer ${App.prefs.authToken}"
+                return headers
+            }
+        }
+        App.prefs.requestQueue.add(messagesRequest)
+    }
+
+    fun clearMessasges () {
+        messages.clear()
+    }
+
+    fun clearChannels () {
+        channels.clear()
     }
 }

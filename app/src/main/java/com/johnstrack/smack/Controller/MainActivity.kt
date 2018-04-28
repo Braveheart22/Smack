@@ -104,6 +104,19 @@ class MainActivity : AppCompatActivity() {
 
     fun updateWithChannel() {
         mainChannelName.text = "#${selectedChannel?.name}"
+        if (selectedChannel != null) {
+            MessageService.getMessages(selectedChannel!!.id) {complete ->
+
+                if (complete) {
+                    for (message in MessageService.messages) {
+                        println(message.message)
+                    }
+                }
+
+            }
+        }
+
+
         // Download messages for channel
     }
 
