@@ -22,4 +22,5 @@
     <string name="channel_name">channel name</string>
     <string name="channel_description">channel description</string>
     <string name="logout">Logout</string>
+    <string name="user_string_avatar">user @string/avatar</string>
 </resources>
