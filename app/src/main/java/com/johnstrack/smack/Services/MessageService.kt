@@ -62,7 +62,7 @@ object MessageService {
 
         val url = "$URL_GET_MESSAGES$channelId"
         val messagesRequest = object : JsonArrayRequest(Method.GET, url, null, Response.Listener {response ->
-            clearMessasges()
+            clearMessages()
             try {
                 for (x in 0 until response.length()) {
                     val message = response.getJSONObject(x)
@@ -101,7 +101,7 @@ object MessageService {
         App.prefs.requestQueue.add(messagesRequest)
     }
 
-    fun clearMessasges () {
+    fun clearMessages () {
         messages.clear()
     }
 

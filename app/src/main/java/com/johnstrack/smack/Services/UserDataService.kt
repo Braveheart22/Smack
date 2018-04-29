@@ -25,7 +25,7 @@ object UserDataService {
         App.prefs.userEmail = ""
         App.prefs.isLoggedIn = false
 
-        MessageService.clearMessasges()
+        MessageService.clearMessages()
         MessageService.clearChannels()
     }
 
