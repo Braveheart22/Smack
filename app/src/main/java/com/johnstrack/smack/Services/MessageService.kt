@@ -40,7 +40,7 @@ object MessageService {
                 complete(false)
             }
 
-        }, Response.ErrorListener { error ->
+        }, Response.ErrorListener { _ ->
             Log.d("Error", "Could not retrieve channels.")
             complete(false)
         }) {
@@ -69,12 +69,12 @@ object MessageService {
                     val messageBody = message.getString("messageBody")
                     val channelId = message.getString("channelId")
                     val id = message.getString("_id")
-                    val useraName = message.getString("userName")
+                    val userName = message.getString("userName")
                     val userAvatar = message.getString("userAvatar")
                     val userAvatarColor = message.getString("userAvatarColor")
                     val timeStamp = message.getString("timeStamp")
 
-                    val newMessage = Message(messageBody, useraName, channelId, userAvatar, userAvatarColor, id, timeStamp)
+                    val newMessage = Message(messageBody, userName, channelId, userAvatar, userAvatarColor, id, timeStamp)
                     this.messages.add(newMessage)
                 }
                 complete(true)
