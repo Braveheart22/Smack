@@ -15,7 +15,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MessageAdapter(val context: Context, val messages: ArrayList<Message>) : RecyclerView.Adapter<MessageAdapter.ViewHolder>() {
+class MessageAdapter(val context: Context, private val messages: ArrayList<Message>) : RecyclerView.Adapter<MessageAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.message_list_view, parent, false)
@@ -32,10 +32,10 @@ class MessageAdapter(val context: Context, val messages: ArrayList<Message>) : R
 
     inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
-        val userImage = itemView?.findViewById<ImageView>(R.id.messageUserImage)
-        val timeStamp = itemView?.findViewById<TextView>(R.id.timestampLbl)
-        val userName = itemView?.findViewById<TextView>(R.id.messageUserNameLbl)
-        val messageBody = itemView?.findViewById<TextView>(R.id.messageBodyLbl)
+        private val userImage = itemView?.findViewById<ImageView>(R.id.messageUserImage)
+        private val timeStamp = itemView?.findViewById<TextView>(R.id.timestampLbl)
+        private val userName = itemView?.findViewById<TextView>(R.id.messageUserNameLbl)
+        private val messageBody = itemView?.findViewById<TextView>(R.id.messageBodyLbl)
 
         fun bindMessage (context: Context, message: Message) {
             val resourceId = context.resources.getIdentifier(message.userAvatar, "drawable", context.packageName)
@@ -46,7 +46,7 @@ class MessageAdapter(val context: Context, val messages: ArrayList<Message>) : R
             messageBody?.text = message.message
         }
 
-        fun returnDateString (isoString: String) : String {
+        private fun returnDateString (isoString: String) : String {
 
             val isoFromatter =  SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
             isoFromatter.timeZone = TimeZone.getTimeZone("UTC")

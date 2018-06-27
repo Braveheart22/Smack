@@ -29,7 +29,6 @@ object MessageService {
                     val name = channel.getString("name")
                     val chanDesc = channel.getString("description")
                     val channelId = channel.getString("_id")
-
                     val newChannel = Channel(name, chanDesc, channelId)
                     this.channels.add(newChannel)
                 }
